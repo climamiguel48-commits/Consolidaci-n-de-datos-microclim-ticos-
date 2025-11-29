@@ -134,4 +134,4 @@ rm(archivos, importar_archivo, filas_a_eliminar, nombres_columnas)
 
 #Exportamos los datos#
 
-write_xlsx(datos_completos, "Datos_Parcela_3.xlsx")
+write_xlsx(datos_completos, "Datos_Parcela_3.xlsx") 
