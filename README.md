@@ -10,6 +10,4 @@ precipitación.
 Por cuestiones de seguridad, los datos se descargan semanalmente, por lo que se van almacenado en 
 archivos.dat. Para garantizar la integridad y aplicabilidad de los datos, es necesario
 adjuntarlos de forma secuencial y posteriormente, verificar la calidad; realizar una 
-exploración que integre estadística descriptiva y visualizacio n.   
-fbsxbs
-
+exploración que integre estadística descriptiva y visualización. 
