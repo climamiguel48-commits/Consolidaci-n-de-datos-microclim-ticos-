@@ -1,8 +1,12 @@
+<<<<<<< HEAD
 ---
 editor_options: 
   markdown: 
     wrap: 72
 ---
+=======
+# Agrupaci-n-de-datos-del-datalogger
+>>>>>>> 65bb0685432f705bb6dd65d02ea55acaccedf737
 
 # Ordenamiento y estructuración de datos meteorológicos descargados de dataloggers
 
@@ -13,8 +17,17 @@ minutos, estas son; temperatura, humedad relativa, velocidad del viento,
 dirección del viento, presión atmosférica, radiación global y
 precipitación.
 
+<<<<<<< HEAD
 Por cuestiones de seguridad, los datos se descargan semanalmente, por lo
 que se van almacenado en archivos.dat. Para garantizar la integridad y
 aplicabilidad de los datos, es necesario adjuntarlos de forma secuencial
 y posteriormente, verificar la calidad; realizar una exploración que
 integre estadística descriptiva y visualización.
+=======
+Por cuestiones de seguridad, los datos se descargan semanalmente, por lo que se van almacenado en 
+archivos.dat. Para garantizar la integridad y aplicabilidad de los datos, es necesario
+adjuntarlos de forma secuencial y posteriormente, verificar la calidad; realizar una 
+exploración que integre estadística descriptiva y visualizacio n.   
+fbsxbs
+
+>>>>>>> 65bb0685432f705bb6dd65d02ea55acaccedf737
