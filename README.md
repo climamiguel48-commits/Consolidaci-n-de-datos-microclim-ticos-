@@ -54,7 +54,7 @@ La zona de estudio del proyecto en donde se instaló la estación meteorológica
 
 Este paso consiste en importar a R y agrupar los datos en forma secuencial. Para ello se diseñó el siguiente script:
 
-# SCRIPT PARA IMPORTAR Y CONSOLIDAR DATOS DE DATALOGGER
+```# SCRIPT PARA IMPORTAR Y CONSOLIDAR DATOS DE DATALOGGER
 # =====================================================
 
 # 1. CARGAR PAQUETES NECESARIOS
@@ -189,7 +189,7 @@ rm(archivos, importar_archivo, filas_a_eliminar, nombres_columnas)
 
 #Exportamos los datos#
 
-write_xlsx(datos_completos, "Datos_Parcela_3.xlsx") 
+```write_xlsx(datos_completos, "Datos_Parcela_3.xlsx") 
 
 
 ## **Análisis Estadístico**
