@@ -2,7 +2,15 @@
 
 Para el proyecto de investigación sobre determinación del consumo hídrico de plantas ornamentales se instaló una estación meteorológica automática compacta. Esta estación registra variables meteorológicas cada 30 minutos, estas son; temperatura, humedad relativa, velocidad del viento, dirección del viento, presión atmosférica, radiación global y precipitación.
 
-Por cuestiones de seguridad, los datos se descargan semanalmente y estos se van almacenado en archivos.dat. Para garantizar la integridad y aplicabilidad de los datos, es necesario adjuntarlos de forma secuencial y posteriormente, verificar la calidad; realizar una exploración que integre estadística descriptiva y visualización.
+Por cuestiones de seguridad, los datos se descargan semanalmente y estos se van almacenado. El formato de los archivos es ".dat". Para garantizar la integridad y aplicabilidad de los datos, es necesario adjuntarlos de forma secuencial y posteriormente, verificar la calidad; realizar una exploración que integre estadística descriptiva y visualización.
+
+## Hipotesis
+
+Asi entonces, se plantea la siguiente hipótesis:
+
+La implementación sistemática de un pipeline integral de procesamiento, visualización y control de calidad de datos es un requisito fundamental para transformar datos meteorológicos crudos en información confiable y aplicable, permitiendo la detección de patrones climáticos significativos y apoyando la toma de decisiones informadas en el manejo agrícola de la parcela.
+
+# Metodología 
 
 ## **Análisis Estadístico de los Datos**
 
