@@ -736,13 +736,35 @@ resultados_completos <- procesar_datos_completo("Datos_Parcela_3.xlsx",
 
 Se procesaron 130 dias de registros. Los resultados son los siguientes:
 
-Analisis estadistico
+Análisis estadístico 
 
-![](resultado estadistico.png)
+```
+Variable	Media	Mediana	SD	Min	Max	NA_count
+Radiacion_global_Wm2	189.109	10.835	261.701	0.000	873.000	0
+Precipitacion_mm	0.029	0.000	0.273	0.000	6.035	4
+Rayos_conteo	0.003	0.000	0.084	0.000	3.000	4
+Velocidad_viento_ms	0.516	0.458	0.345	0.048	2.103	4
+Direccion_viento_grados	176.130	163.900	79.516	0.900	359.700	4
+Rachas_ms	1.512	1.347	1.044	0.123	6.328	4
+Temperatura_aire_C	15.594	14.225	6.836	2.317	32.920	4
+Presion_atmosferica_mbar	1,016.620	1,016.331	3.037	1,009.648	1,027.098	4
+Humedad_relativa_porc	67.616	70.650	23.167	15.700	100.000	4
+Radiacion_global_MJm2	0.682	0.037	0.942	0.000	3.143	4
+Temperatura_superficie_C	15.962	13.750	8.176	1.126	36.380	4
+Flujo_energia_suelo_Wm2	-0.098	-1.015	4.760	-10.820	12.460	4
+Radiacion_neta_Wm2	526.439	317.900	768.792	-1,642.000	3,004.000	4
+Temperatura_termocupla1_C	16.584	14.150	8.854	0.719	38.430	4
+Temperatura_termocupla2_C	16.584	14.150	8.854	0.721	38.430	4
+Humedad_suelo_5cm_m3m3	0.357	0.365	0.036	0.214	0.450	4
+Humedad_suelo_40cm_m3m3	0.490	0.491	0.006	0.476	0.501	4
+
+```
 
 Control de calidad
 
 ```
+Valores fuera de rango físico (conteo y %)
+
 Variable	N_fuera_rango	Porcentaje
 Temperatura_aire_C	0	0
 Humedad_relativa_porc	0	0
@@ -751,6 +773,48 @@ Radiacion_global_Wm2	0	0
 Precipitacion_mm	0	0
 Humedad_suelo_5cm_m3m3	0	0
 Humedad_suelo_40cm_m3m3	0	0
+
+Valores atípicos (IQR):
+
+Variable	N_atipicos	Porcentaje
+Radiacion_global_Wm2	0	0.00
+Precipitacion_mm	179	7.34
+Rayos_conteo	3	0.12
+Velocidad_viento_ms	10	0.41
+Direccion_viento_grados	0	0.00
+Rachas_ms	4	0.16
+Temperatura_aire_C	0	0.00
+Presion_atmosferica_mbar	28	1.15
+Humedad_relativa_porc	0	0.00
+Radiacion_global_MJm2	0	0.00
+Temperatura_superficie_C	0	0.00
+Flujo_energia_suelo_Wm2	0	0.00
+Radiacion_neta_Wm2	66	2.71
+Temperatura_termocupla1_C	0	0.00
+Temperatura_termocupla2_C	0	0.00
+Humedad_suelo_5cm_m3m3	190	7.79
+Humedad_suelo_40cm_m3m3	0	0.00
+
+Completitud de datos (%):
+
+Variable	Completitud_pct
+Radiacion_global_Wm2	100.00
+Precipitacion_mm	99.84
+Rayos_conteo	99.84
+Velocidad_viento_ms	99.84
+Direccion_viento_grados	99.84
+Rachas_ms	99.84
+Temperatura_aire_C	99.84
+Presion_atmosferica_mbar	99.84
+Humedad_relativa_porc	99.84
+Radiacion_global_MJm2	99.84
+Temperatura_superficie_C	99.84
+Flujo_energia_suelo_Wm2	99.84
+Radiacion_neta_Wm2	99.84
+Temperatura_termocupla1_C	99.84
+Temperatura_termocupla2_C	99.84
+Humedad_suelo_5cm_m3m3	99.84
+Humedad_suelo_40cm_m3m3	99.84
 
 ```
 
