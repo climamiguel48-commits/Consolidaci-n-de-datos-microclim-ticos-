@@ -14,6 +14,8 @@ La implementación sistemática de un pipeline integral de procesamiento, visual
 
 ## **Zona de estudio**
 
+La zona de estudio del proyecto en donde se instaló la estación meteorológica, se encuentra ubicada en Carr. Gral. San Martín 7021, 8, Huechuraba, entre las coordenadas -33.354 de latitud y -70.691 de longitud, a una altitud de 490.87 msnm, Santiago de Chile, Chile.
+
 ![](area.png)
 
 ## **Análisis Estadístico de los Datos**
