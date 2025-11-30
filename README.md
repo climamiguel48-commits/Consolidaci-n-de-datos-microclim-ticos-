@@ -18,7 +18,7 @@ La zona de estudio del proyecto en donde se instaló la estación meteorológica
 
 Este visualización de la localización de la zona de estudio se realizó con el siguiente script:
 
-```
+```         
 library(tmap)
 library(sf)
 library(dplyr)
@@ -97,7 +97,6 @@ cat("📝 Información incluida:\n")
 cat("   • Carr. Gral. San Martín 7021, Huechuraba\n")
 cat("   • Altitud: 490.87 msnm\n")
 cat("   • Coordenadas: -33.354, -70.691\n")
-
 ```
 
 ## Procesamiento de los datos
@@ -265,7 +264,6 @@ Los resultados de todas estas pruebas se reportaron detalladamente dentro un inf
 #Análisis estadístico y control de calidad
 
 # CARGAR LIBRERÍAS NECESARIAS
-
 library(readxl)
 library(dplyr)
 library(ggplot2)
@@ -386,22 +384,22 @@ procesar_datos_completo <- function(archivo, prefijo = "Analisis_Parcela3", arch
     
     # Estadísticas descriptivas (variables principales si existen)
     vars_principales <- c("Radiacion_global_Wm2",
-                           "Precipitacion_mm", 
+                          "Precipitacion_mm", 
                           "Rayos_conteo",
                           "Velocidad_viento_ms",
                           "Direccion_viento_grados",
-                           "Rachas_ms",
+                          "Rachas_ms",
                           "Temperatura_aire_C",
-                           "Presion_atmosferica_mbar",
+                          "Presion_atmosferica_mbar",
                           "Humedad_relativa_porc",
-                           "Radiacion_global_MJm2",
+                          "Radiacion_global_MJm2",
                           "Temperatura_superficie_C",
                           "Flujo_energia_suelo_Wm2",
                           "Radiacion_neta_Wm2",
-                           "Temperatura_termocupla1_C",
-                           "Temperatura_termocupla2_C",
+                          "Temperatura_termocupla1_C",
+                          "Temperatura_termocupla2_C",
                           "Humedad_suelo_5cm_m3m3",
-                           "Humedad_suelo_40cm_m3m3")
+                          "Humedad_suelo_40cm_m3m3")
     
     estadisticas <- list()
     for (var in vars_principales) {
@@ -427,168 +425,7 @@ procesar_datos_completo <- function(archivo, prefijo = "Analisis_Parcela3", arch
   }
   
   # ---------------------------
-  # 3. VISUALIZACIONES + viento
-  # ---------------------------
-  crear_visualizaciones <- function(datos) {
-    cat("\n3. CREANDO VISUALIZACIONES...\n")
-    
-    # Asegurar columna de fecha_hora ordenada
-    datos <- datos %>% arrange(fecha_hora)
-    
-    # PANEL ATMOSFÉRICO (igual que antes)
-    p1 <- if ("Radiacion_global_Wm2" %in% colnames(datos)) {
-      ggplot(datos, aes(x = fecha_hora, y = Radiacion_global_Wm2)) +
-        geom_line(color = "orange", alpha = 0.7, linewidth = 0.3) +
-        labs(title = "Radiación Global", x = "", y = "W/m²")
-    } else NULL
-    
-    p2 <- if ("Velocidad_viento_ms" %in% colnames(datos)) {
-      ggplot(datos, aes(x = fecha_hora, y = Velocidad_viento_ms)) +
-        geom_line(color = "blue", alpha = 0.7, linewidth = 0.3) +
-        labs(title = "Velocidad del Viento", x = "", y = "m/s")
-    } else NULL
-    
-    p3 <- if ("Rachas_ms" %in% colnames(datos)) {
-      ggplot(datos, aes(x = fecha_hora, y = Rachas_ms)) +
-        geom_line(color = "darkblue", alpha = 0.7, linewidth = 0.3) +
-        labs(title = "Rachas", x = "", y = "m/s")
-    } else NULL
-    
-    p4 <- if ("Temperatura_aire_C" %in% colnames(datos)) {
-      ggplot(datos, aes(x = fecha_hora, y = Temperatura_aire_C)) +
-        geom_line(color = "red", alpha = 0.7, linewidth = 0.3) +
-        labs(title = "Temperatura del Aire", x = "", y = "°C")
-    } else NULL
-    
-    p5 <- if ("Humedad_relativa_porc" %in% colnames(datos)) {
-      ggplot(datos, aes(x = fecha_hora, y = Humedad_relativa_porc)) +
-        geom_line(color = "darkgreen", alpha = 0.7, linewidth = 0.3) +
-        labs(title = "Humedad Relativa", x = "Fecha", y = "%")
-    } else NULL
-    
-    # Organizar panel atmosférico
-    # intentar combinar solo los plots no-NULL
-    atm_plots <- list(p1,p2,p3,p4,p5)
-    atm_plots <- atm_plots[!sapply(atm_plots, is.null)]
-    
-    if (length(atm_plots) > 0) {
-      # crear layout flexible: 3 columnas por fila
-      if (length(atm_plots) <= 3) {
-        panel_atmosferico <- wrap_plots(atm_plots, ncol = length(atm_plots)) +
-          plot_annotation(title = "Variables Atmosféricas - Series Temporales")
-      } else {
-        panel_atmosferico <- (wrap_plots(atm_plots[1:3], ncol = 3) /
-                                wrap_plots(atm_plots[4:length(atm_plots)], ncol = 3)) +
-          plot_annotation(title = "Variables Atmosféricas - Series Temporales")
-      }
-    } else {
-      panel_atmosferico <- NULL
-    }
-    
-    # PANEL SUELO (igual lógica)
-    suelo_plots <- list()
-    if ("Temperatura_superficie_C" %in% colnames(datos)) {
-      suelo_plots[[length(suelo_plots)+1]] <- ggplot(datos, aes(x = fecha_hora, y = Temperatura_superficie_C)) +
-        geom_line(color = "darkred", alpha = 0.7, linewidth = 0.3) + labs(title = "Temperatura Superficie", x = "", y = "°C")
-    }
-    if ("Flujo_energia_suelo_Wm2" %in% colnames(datos)) {
-      suelo_plots[[length(suelo_plots)+1]] <- ggplot(datos, aes(x = fecha_hora, y = Flujo_energia_suelo_Wm2)) +
-        geom_line(color = "darkorange", alpha = 0.7, linewidth = 0.3) + labs(title = "Flujo Energía Suelo", x = "", y = "W/m²")
-    }
-    if ("Temperatura_termocupla1_C" %in% colnames(datos)) {
-      suelo_plots[[length(suelo_plots)+1]] <- ggplot(datos, aes(x = fecha_hora, y = Temperatura_termocupla1_C)) +
-        geom_line(color = "#FF6A6A", alpha = 0.7, linewidth = 0.3) + labs(title = "Termocupla 1", x = "", y = "°C")
-    }
-    if ("Temperatura_termocupla2_C" %in% colnames(datos)) {
-      suelo_plots[[length(suelo_plots)+1]] <- ggplot(datos, aes(x = fecha_hora, y = Temperatura_termocupla2_C)) +
-        geom_line(color = "#CD5555", alpha = 0.7, linewidth = 0.3) + labs(title = "Termocupla 2", x = "", y = "°C")
-    }
-    if ("Humedad_suelo_5cm_m3m3" %in% colnames(datos)) {
-      suelo_plots[[length(suelo_plots)+1]] <- ggplot(datos, aes(x = fecha_hora, y = Humedad_suelo_5cm_m3m3)) +
-        geom_line(color = "darkolivegreen", alpha = 0.7, linewidth = 0.3) + labs(title = "Humedad Suelo 5cm", x = "", y = "m³/m³")
-    }
-    if ("Humedad_suelo_40cm_m3m3" %in% colnames(datos)) {
-      suelo_plots[[length(suelo_plots)+1]] <- ggplot(datos, aes(x = fecha_hora, y = Humedad_suelo_40cm_m3m3)) +
-        geom_line(color = "darkolivegreen4", alpha = 0.7, linewidth = 0.3) + labs(title = "Humedad Suelo 40cm", x = "Fecha", y = "m³/m³")
-    }
-    
-    if (length(suelo_plots) > 0) {
-      panel_suelo <- wrap_plots(suelo_plots, ncol = 3) +
-        plot_annotation(title = "Variables del Suelo - Series Temporales")
-    } else {
-      panel_suelo <- NULL
-    }
-    
-    # BOXPLOT de temperaturas (igual que antes)
-    temp_vars <- c("Temperatura_aire_C", "Temperatura_superficie_C", 
-                   "Temperatura_termocupla1_C", "Temperatura_termocupla2_C")
-    temp_disponibles <- temp_vars[temp_vars %in% colnames(datos)]
-    if (length(temp_disponibles) > 0) {
-      datos_temp <- datos %>%
-        select(all_of(temp_disponibles)) %>%
-        pivot_longer(cols = everything(), names_to = "Variable", values_to = "Valor")
-      etiquetas <- c(
-        "Temperatura_aire_C" = "Temp Aire",
-        "Temperatura_superficie_C" = "Temp Superficie", 
-        "Temperatura_termocupla1_C" = "Termocupla 1",
-        "Temperatura_termocupla2_C" = "Termocupla 2"
-      )
-      datos_temp$Variable_etiqueta <- factor(datos_temp$Variable,
-                                             levels = names(etiquetas),
-                                             labels = etiquetas)
-      boxplot_temperaturas <- ggplot(datos_temp, aes(x = Variable_etiqueta, y = Valor, fill = Variable_etiqueta)) +
-        geom_boxplot(outlier.color = "red", outlier.shape = 16, outlier.size = 1.2) +
-        stat_summary(fun = mean, geom = "point", shape = 18, size = 3, color = "yellow") +
-        labs(title = "Distribución de Temperaturas - Boxplot", x = "Variables", y = "°C") +
-        theme(legend.position = "none", axis.text.x = element_text(angle = 45, hjust = 1))
-    } else {
-      boxplot_temperaturas <- NULL
-    }
-    
-    # -------------------------------------------------------
-    # GRÁFICO ADICIONAL: DIRECCIÓN DE VIENTO PREDOMINANTE
-    # -------------------------------------------------------
-    cat("Creando gráfico de dirección de viento predominante...\n")
-    
-    if ("Direccion_viento_grados" %in% colnames(datos)) {
-      
-      # Definir sectores (8 puntos cardinales)
-      datos$sector_viento <- cut(
-        datos$Direccion_viento_grados,
-        breaks = seq(0, 360, by = 45),
-        include.lowest = TRUE,
-        labels = c("N","NE","E","SE","S","SO","O","NO")
-      )
-      
-      # Contar frecuencia por sector
-      tabla_viento <- datos %>%
-        group_by(sector_viento) %>%
-        summarise(frecuencia = n()) %>%
-        mutate(porcentaje = frecuencia / sum(frecuencia) * 100)
-      
-      # Gráfico tipo rosa (pero circular simple)
-      grafico_viento <- ggplot(tabla_viento, aes(x = sector_viento, y = porcentaje, fill = sector_viento)) +
-        geom_col(color = "black") +
-        coord_polar(start = -pi/8) +
-        labs(title = "Dirección de Viento Predominante",
-             x = "",
-             y = "Porcentaje (%)") +
-        theme_minimal() +
-        theme(plot.title = element_text(hjust = 0.5, face = "bold"))
-      
-    } else {
-      grafico_viento <- NULL
-    }
-    return(list(
-      panel_atmosferico = panel_atmosferico,
-      panel_suelo = panel_suelo,
-      boxplot_temperaturas = boxplot_temperaturas,
-      rosa_viento = grafico_viento
-    ))
-  }
-  
-  # ---------------------------
-  # 4. CONTROL DE CALIDAD
+  # 3. CONTROL DE CALIDAD
   # ---------------------------
   control_calidad <- function(datos) {
     cat("\n4. REALIZANDO CONTROL DE CALIDAD...\n")
@@ -687,31 +524,10 @@ procesar_datos_completo <- function(archivo, prefijo = "Analisis_Parcela3", arch
   }
   
   # ---------------------------
-  # 5. GENERAR INFORME EN WORD
+  # 4. GENERAR INFORME EN WORD
   # ---------------------------
-  generar_informe_word <- function(datos, resultados_ae, resultados_cc, graficos, prefijo, archivo_word) {
+  generar_informe_word <- function(datos, resultados_ae, resultados_cc, prefijo, archivo_word) {
     cat("\n5. GENERANDO INFORME EN WORD...\n")
-    
-    # Guardar gráficos a disco para luego incrustar
-    if (!is.null(graficos$panel_atmosferico)) {
-      png1 <- paste0(prefijo, "_Panel_Atmosferico.png")
-      ggsave(png1, graficos$panel_atmosferico, width = 14, height = 10, dpi = 300)
-    } else png1 <- NULL
-    
-    if (!is.null(graficos$panel_suelo)) {
-      png2 <- paste0(prefijo, "_Panel_Suelo.png")
-      ggsave(png2, graficos$panel_suelo, width = 14, height = 10, dpi = 300)
-    } else png2 <- NULL
-    
-    if (!is.null(graficos$boxplot_temperaturas)) {
-      png3 <- paste0(prefijo, "_Boxplot_Temperaturas.png")
-      ggsave(png3, graficos$boxplot_temperaturas, width = 10, height = 8, dpi = 300)
-    } else png3 <- NULL
-    
-    if (!is.null(graficos$grafico_direccion_viento)) {
-      png4 <- paste0(prefijo, "_Direccion_Viento.png")
-      ggsave(png4, graficos$grafico_direccion_viento, width = 7, height = 7, dpi = 300)
-    } else png4 <- NULL
     
     # Crear documento Word
     doc <- read_docx()
@@ -774,24 +590,6 @@ procesar_datos_completo <- function(archivo, prefijo = "Analisis_Parcela3", arch
     # Saltos temporales
     doc <- doc %>% body_add_par(paste0("Saltos en la serie temporal (intervalos != 1 hora): ", resultados_cc$saltos_temporales), style = "Normal")
     
-    # Insertar gráficos
-    doc <- doc %>% body_add_par("Gráficos generados", style = "heading 2")
-    if (!is.null(png1)) doc <- doc %>% body_add_par("Panel Atmosférico") %>% body_add_img(src = png1, width = 6.5, height = 4.5)
-    if (!is.null(png2)) doc <- doc %>% body_add_par("Panel Suelo") %>% body_add_img(src = png2, width = 6.5, height = 4.5)
-    if (!is.null(png3)) doc <- doc %>% body_add_par("Boxplot de Temperaturas") %>% body_add_img(src = png3, width = 6.5, height = 4.5)
-    if (!is.null(png4)) {
-      doc <- doc %>% body_add_par("Dirección de Viento (sectores)") %>% body_add_img(src = png4, width = 5, height = 5)
-      # agregar tabla de sectores
-      dir_tab <- graficos$direccion_resumen$tabla
-      dir_tab <- dir_tab %>% mutate(freq = round(freq,2))
-      dir_ft <- regulartable(dir_tab)
-      dir_ft <- autofit(dir_ft)
-      doc <- doc %>% body_add_par("Tabla de frecuencia por sector (Dirección de viento)", style = "Normal") %>% body_add_flextable(dir_ft)
-      # insertar predominante
-      pred <- graficos$direccion_resumen$predominante
-      doc <- doc %>% body_add_par(paste0("Dirección predominante: ", pred$sector, " (", pred$n, " observaciones, ", round(pred$n/sum(dir_tab$n)*100,2), "%)"), style = "Normal")
-    }
-    
     # Recomendaciones (breves)
     doc <- doc %>% body_add_par("Recomendaciones (generales)", style = "heading 2")
     recs <- c(
@@ -806,9 +604,7 @@ procesar_datos_completo <- function(archivo, prefijo = "Analisis_Parcela3", arch
     print(doc, target = archivo_word)
     cat("✓ Documento Word generado en:", archivo_word, "\n")
     
-    # retornar nombres de archivos generados
-    lista_guardados <- list(png_panel_atm = png1, png_panel_suelo = png2, png_boxplot = png3, png_viento = png4, doc = archivo_word)
-    return(lista_guardados)
+    return(archivo_word)
   }
   
   # ---------------------------
@@ -817,49 +613,37 @@ procesar_datos_completo <- function(archivo, prefijo = "Analisis_Parcela3", arch
   cat("INICIANDO PROCESAMIENTO COMPLETO DE DATOS...\n")
   datos_procesados <- procesar_variables(df)
   resultados_ae <- analisis_exploratorio(datos_procesados)
-  graficos <- crear_visualizaciones(datos_procesados)
   resultados_cc <- control_calidad(datos_procesados)
   
   # imprimir informe en consola
-  generar_informe <- function(datos, resultados_ae, resultados_cc, graficos) {
-    # (reusar tu función de consola si quisieras; ya no necesario aquí)
+  generar_informe <- function(datos, resultados_ae, resultados_cc) {
     cat("Resumen en consola disponible.\n")
   }
-  generar_informe(datos_procesados, resultados_ae, resultados_cc, graficos)
+  generar_informe(datos_procesados, resultados_ae, resultados_cc)
   
-  # Mostrar y guardar gráficos
-  cat("\nMOSTRANDO Y GUARDANDO GRÁFICOS...\n")
-  if (!is.null(graficos$panel_atmosferico)) print(graficos$panel_atmosferico)
-  if (!is.null(graficos$panel_suelo)) print(graficos$panel_suelo)
-  if (!is.null(graficos$boxplot_temperaturas)) print(graficos$boxplot_temperaturas)
-  if (!is.null(graficos$grafico_direccion_viento)) print(graficos$grafico_direccion_viento)
+  # Generar Word con todo
+  archivo_word_generado <- generar_informe_word(datos_procesados, resultados_ae, resultados_cc, prefijo, archivo_word)
   
   # Guardar resultados a disco (datos, resumen txt)
   write.csv(datos_procesados, paste0(prefijo, "_Datos_Procesados.csv"), row.names = FALSE, fileEncoding = "UTF-8")
-  
-  # Generar Word con todo
-  archivos_generados <- generar_informe_word(datos_procesados, resultados_ae, resultados_cc, graficos, prefijo, archivo_word)
   
   # devolver todo
   return(list(
     datos_procesados = datos_procesados,
     analisis_exploratorio = resultados_ae,
     control_calidad = resultados_cc,
-    graficos = graficos,
-    archivos_generados = archivos_generados
+    archivo_word = archivo_word_generado
   ))
 }
 
 # =============================================================================
-# EJECUTAR ANÁLISIS COMPLETO (EJEMPLO)
+# EJECUTAR ANÁLISIS COMPLETO
 # =============================================================================
 
-# Sustituye "Datos_Parcela_3.xlsx" por tu archivo real.
 # El informe Word se guardará como "Informe_Analisis_Parcela3.docx"
 resultados_completos <- procesar_datos_completo("Datos_Parcela_3.xlsx",
                                                 prefijo = "Analisis_Parcela3",
                                                 archivo_word = "Informe_Analisis_Parcela3.docx")
-
 ```
 
 ## Resultados
@@ -948,16 +732,258 @@ Humedad_suelo_40cm_m3m3 99.84
 
 ### Gráficos generados
 
+Para la generación de los gráficos se usó el siguiente script:
+
+```         
+#Script para visualización grafica#
+
+# Cargar librerías necesarias
+library(readxl)
+library(ggplot2)
+library(dplyr)
+library(lubridate)
+library(tidyr)
+library(openair)
+library(ggpmisc)
+
+# Leer el archivo Excel
+datos <- read_excel("Datos_Parcela_3.xlsx")
+
+# Renombrar variables según especificaciones
+datos_renombrado <- datos %>%
+  rename(
+    Radiacion_global_Wm2 = SlrFD_W_Avg,
+    Precipitacion_mm = Rain_mm_Tot,
+    Rayos_conteo = Strikes_Tot,
+    Velocidad_viento_ms = WS_ms_Avg,
+    Direccion_viento_grados = WindDir,
+    Rachas_ms = MaxWS_ms_Avg,
+    Temperatura_aire_C = AirT_C_Avg,
+    Presion_atmosferica_mbar = BP_mbar_Avg,
+    Humedad_relativa_porc = RH,
+    Radiacion_global_MJm2 = SlrTF_MJ_Tot,
+    Temperatura_superficie_C = SBT_C_Avg,
+    Flujo_energia_suelo_Wm2 = SHF_Avg,
+    Radiacion_neta_Wm2 = NR_Wm2_Avg,
+    Temperatura_termocupla1_C = Temp_TC1_C_Avg,
+    Temperatura_termocupla2_C = Temp_TC2_C_Avg,
+    Humedad_suelo_5cm_m3m3 = SWC_5CM_Avg,
+    Humedad_suelo_40cm_m3m3 = SWC_40CM_Avg
+  )
+
+# Convertir fecha_hora a formato datetime
+datos_renombrado$fecha_hora <- as.POSIXct(datos_renombrado$fecha_hora, format = "%Y-%m-%d %H:%M:%S")
+
+# Extraer componentes de fecha y hora
+datos_renombrado <- datos_renombrado %>%
+  mutate(
+    fecha = as.Date(fecha_hora),
+    hora = hour(fecha_hora),
+    dia = day(fecha_hora),
+    mes = month(fecha_hora)
+  )
+
+# 1. GRÁFICO DE SERIES TEMPORALES - VARIABLES PRINCIPALES
+# Crear un dataset largo para facetas
+datos_largo <- datos_renombrado %>%
+  select(fecha_hora, 
+         Radiacion_global_Wm2, 
+         Temperatura_aire_C, 
+         Humedad_relativa_porc,
+         Precipitacion_mm,
+         Velocidad_viento_ms,
+         Presion_atmosferica_mbar) %>%
+  pivot_longer(cols = -fecha_hora, names_to = "Variable", values_to = "Valor")
+
+datos_largo$Valor<-as.numeric(datos_largo$Valor)
+
+# Gráfico de series temporales múltiples
+series_temporales<-ggplot(datos_largo, aes(x = fecha_hora, y = Valor, color = Variable)) +
+  geom_line(linewidth = 0.3, alpha = 0.8) +
+  facet_wrap(~ Variable, scales = "free_y", ncol = 2) +
+  scale_color_manual(values = c(
+    "Humedad_relativa_porc" = "blue",
+    "Presion_atmosferica_mbar" = "darkgreen", 
+    "Temperatura_aire_C" = "red",
+    "Precipitacion_mm" = "cyan",
+    "Radiacion_global_Wm2" = "orange",
+    "Velocidad_viento_ms" = "purple",
+    "Direccion_viento" = "brown"
+  )) +
+  labs(title = "Series Temporales de Variables Meteorológicas-Huechuraba",
+       x = "Fecha y Hora", y = "") +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  guides(color = "none")
+
+# 2. GRÁFICO DE RADIACIÓN vs TEMPERATURA
+
+RADIACIÓN_TEMPERATURA<-ggplot(datos_renombrado, aes(x = as.numeric(Radiacion_global_Wm2), y = as.numeric(Temperatura_aire_C))) +
+  geom_point(alpha = 0.5, color = "red") +
+  geom_smooth(method = "lm", color = "blue", se = TRUE) +
+  stat_poly_eq(aes(label = paste(after_stat(eq.label), 
+                                 after_stat(rr.label), 
+                                 after_stat(p.value.label), 
+                                 sep = "~~~")),
+               formula = y ~ x, 
+               parse = TRUE,
+               size = 4,
+               label.x = 0.05, label.y = 0.95) +
+  labs(title = "Radiación Global vs Temperatura del Aire",
+       x = "Radiación Global (W/m²)", y = "Temperatura del Aire (°C)") +
+  theme_bw()
+
+# 3. GRÁFICO DE HUMEDAD DEL SUELO EN EL TIEMPO
+datos_suelo <- datos_renombrado %>%
+  select(fecha_hora, Humedad_suelo_5cm_m3m3, Humedad_suelo_40cm_m3m3) %>%
+  pivot_longer(cols = -fecha_hora, names_to = "Profundidad", values_to = "Humedad")
+
+datos_suelo$Humedad<-as.numeric(datos_suelo$Humedad)
+
+Humedad_Suelo<-ggplot(datos_suelo, aes(x = fecha_hora, y = Humedad, color = Profundidad)) +
+  geom_line(linewidth = 0.5) +
+  labs(title = "Humedad del Suelo a Diferentes Profundidades",
+       x = "Fecha y Hora", y = "Humedad (m³/m³)",
+       color = "Profundidad") +
+  theme_bw() +
+  theme(legend.position = "top")
+
+# 4. GRÁFICO DE TEMPERATURAS COMPARATIVAS
+datos_temp <- datos_renombrado %>%
+  select(fecha_hora, Temperatura_aire_C, Temperatura_superficie_C, 
+         Temperatura_termocupla1_C, Temperatura_termocupla2_C) %>%
+  mutate(across(-fecha_hora, ~ {
+    num_val <- as.numeric(.)
+    ifelse(is.na(num_val), mean(num_val, na.rm = TRUE), num_val)
+  })) %>%
+  pivot_longer(cols = -fecha_hora, names_to = "Tipo_Temperatura", values_to = "Temperatura")
+
+Diferentes_Temperaturas<-ggplot(datos_temp, aes(x = fecha_hora, y = Temperatura, color = Tipo_Temperatura)) +
+  geom_line(linewidth = 0.4, alpha = 0.7) +
+  labs(title = "Comparación de Diferentes Temperaturas",
+       x = "Fecha y Hora", y = "Temperatura (°C)",
+       color = "Tipo de Temperatura") +
+  theme_bw() +
+  theme(legend.position = "top")
+
+# 5. GRÁFICO DE PRECIPITACIÓN ACUMULADA
+Precipitacion<-datos_renombrado %>%
+  mutate(fecha = as.Date(fecha_hora),
+         Precipitacion_mm = as.numeric(Precipitacion_mm)) %>%
+  group_by(fecha) %>%
+  summarise(Precipitacion_diaria = sum(Precipitacion_mm, na.rm = TRUE)) %>%
+  ggplot(aes(x = fecha, y = Precipitacion_diaria)) +
+  geom_col(fill = "blue", alpha = 0.7) +
+  labs(title = "Precipitación Diaria Acumulada",
+       x = "Fecha", y = "Precipitación (mm)") +
+  theme_bw()
+
+# 6. ROSA DE VIENTOS (Wind Rose)
+# Asegurarse de que openair esté instalado y cargado
+rosas_viento<-if(require(openair)) {
+  # Preparar datos para rosa de vientos
+  wind_data <- datos_renombrado %>%
+    select(ws = Velocidad_viento_ms, wd = Direccion_viento_grados) %>%
+    filter(!is.na(ws), !is.na(wd))
+  
+  # Crear rosa de vientos
+  windRose(wind_data, 
+           ws = "ws", 
+           wd = "wd",
+           main = "Rosa de Vientos",
+           paddle = FALSE,
+           key.header = "Velocidad (m/s)")
+}
+
+# 7. GRÁFICO DE DIAGRAMA DE CAJA POR HORA DEL DÍA
+Distribución_Temperatura<-ggplot(datos_renombrado, aes(x = factor(hora), y = Temperatura_aire_C)) +
+  geom_boxplot(fill = "lightblue", alpha = 0.7) +
+  labs(title = "Distribución de Temperatura por Hora del Día",
+       x = "Hora del Día", y = "Temperatura del Aire (°C)") +
+  theme_bw()
+
+# 8. GRÁFICO DE RADIACIÓN NETA vs FLUJO DE ENERGÍA EN EL SUELO
+Radiación_Flujo_Suelo<-ggplot(datos_renombrado, aes(x = as.numeric(Radiacion_global_Wm2), y = as.numeric(Flujo_energia_suelo_Wm2))) +
+  geom_point(alpha = 0.5, color = "darkgreen") +
+  geom_smooth(method = "lm", color = "red", se = TRUE) +
+  labs(title = "Radiación Neta vs Flujo de Energía en el Suelo",
+       x = "Radiación Global (W/m²)", y = "Flujo de Energía en el Suelo (W/m²)") +
+  theme_bw()
+
+# 9. GRÁFICO DE PRESIÓN ATMOSFÉRICA EN EL TIEMPO
+Presión_Atmosférica<-ggplot(datos_renombrado, aes(x = fecha_hora, y = as.numeric(Presion_atmosferica_mbar))) +
+  geom_line(color = "purple", linewidth = 0.5) +
+  labs(title = "Presión Atmosférica en el Tiempo",
+       x = "Fecha y Hora", y = "Presión Atmosférica (mbar)") +
+  theme_bw()
+
+# 10. GRÁFICO DE CORRELACIONES ENTRE VARIABLES
+# Seleccionar variables numéricas para matriz de correlación
+variables_cor <- datos_renombrado %>%
+  select(Radiacion_global_Wm2, Temperatura_aire_C, Humedad_relativa_porc,
+         Velocidad_viento_ms, Presion_atmosferica_mbar,
+         Humedad_suelo_5cm_m3m3, Humedad_suelo_40cm_m3m3)
+
+variables_cor_numeric <- variables_cor %>%
+  mutate(across(everything(), as.numeric))
+
+# Calcular matriz de correlación
+cor_matrix <- cor(variables_cor_numeric, use = "complete.obs")
+
+# Convertir a formato largo para ggplot
+cor_long <- as.data.frame(as.table(cor_matrix)) %>%
+  rename(Var1 = Var1, Var2 = Var2, Correlacion = Freq)
+
+correlaciones<-ggplot(cor_long, aes(x = Var1, y = Var2, fill = Correlacion)) +
+  geom_tile() +
+  scale_fill_gradient2(low = "blue", high = "red", mid = "white", 
+                       midpoint = 0, limit = c(-1,1), space = "Lab",
+                       name = "Correlación") +
+  geom_text(aes(label = round(Correlacion, 2)), color = "black", size = 3) +
+  labs(title = "Matriz de Correlación entre Variables",
+       x = "", y = "") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+# Guardar todos los gráficos en archivos PNG
+ggsave("series_temporales.png", plot = series_temporales, width = 12, height = 8, dpi = 500)
+ggsave("radiacion_vs_temperatura.png", plot = RADIACIÓN_TEMPERATURA, width = 10, height = 6, dpi = 500)
+ggsave("humedad_suelo.png", plot = Humedad_Suelo, width = 10, height = 6, dpi = 500)
+ggsave("temperaturas_comparativas.png", plot = Diferentes_Temperaturas , width = 10, height = 6, dpi = 500)
+ggsave("precipitacion_diaria.png", plot = Precipitacion, width = 10, height = 6, dpi = 500)
+ggsave("boxplot_temperatura_hora.png", plot = Distribución_Temperatura, width = 10, height = 6, dpi = 500)
+ggsave("radiacion_vs_flujo_suelo.png", plot = Radiación_Flujo_Suelo, width = 10, height = 6, dpi = 500)
+ggsave("presion_atmosferica.png", plot = Presión_Atmosférica, width = 10, height = 6, dpi = 500)
+ggsave("matriz_correlacion.png", plot = correlaciones,  width = 10, height = 8, dpi = 500)
+png("rosa_viento.png", width = 10, height = 6, units = "in", res = 500)
+print(rosas_viento)  # Usar print() explícitamente
+dev.off()
+```
+
 Las variables mostraron el comportamiento bimodal característico, típico de la respuesta al flujo de energía disponible.
 
-![](Analisis_Parcela3_Panel_Atmosferico.png)
+![](series_temporales.png)
 
-![](Analisis_Parcela3_Panel_Suelo.png)
+Las correlaciones entre las variables mostraron globalmente las relaciones mandefineds importantes entre las variables más importantes 
+
+![](matriz_correlacion.png)
+
+![](precipitacion_diaria.png)
+
+![](humedad_suelo.png)
+
+Como se aprecia en la figura a continuación, la temperatura del aire es respuesta de la radiación global con un R2 moderado, estadísticamente significativo.
+
+![](radiacion_vs_temperatura.png)
+
+De acuerdo al grafico de rosas de vientos, se constata que la dirección del viento es predominante desde el sur.
+
+![](rosa_viento_2.png)
 
 Se decidió realizar boxplot de las temperaturas para verificar visualmente la distribución de los datos y si existía algún valor atípico.
 
-![](Analisis_Parcela3_Boxplot_Temperaturas.png)
+![](Distribucion_temperaturas.png)
 
-## Conclusiones 
+## Conclusiones
 
-Los resultados mostraron registros considerados satisfactorios, al estar dentro de los esquemas aceptables de calidad para datos meteorológicos, tanto en los valores atípicos, fuera de rango y en el análisis exploratorio estadístico. 
+Los resultados mostraron registros considerados satisfactorios, al estar dentro de los esquemas aceptables de calidad para datos meteorológicos, tanto en los valores atípicos, fuera de rango y en el análisis exploratorio estadístico.
