@@ -301,8 +301,23 @@ procesar_datos_completo <- function(archivo, prefijo = "Analisis_Parcela3", arch
     resultados_ae$variables_numericas <- vars_numericas
     
     # Estadísticas descriptivas (variables principales si existen)
-    vars_principales <- c("Temperatura_aire_C", "Humedad_relativa_porc", "Velocidad_viento_ms",
-                          "Radiacion_global_Wm2", "Presion_atmosferica_mbar", "Precipitacion_mm")
+    vars_principales <- c("Radiacion_global_Wm2",
+                           "Precipitacion_mm", 
+                          "Rayos_conteo",
+                          "Velocidad_viento_ms",
+                          "Direccion_viento_grados",
+                           "Rachas_ms",
+                          "Temperatura_aire_C",
+                           "Presion_atmosferica_mbar",
+                          "Humedad_relativa_porc",
+                           "Radiacion_global_MJm2",
+                          "Temperatura_superficie_C",
+                          "Flujo_energia_suelo_Wm2",
+                          "Radiacion_neta_Wm2",
+                           "Temperatura_termocupla1_C",
+                           "Temperatura_termocupla2_C",
+                          "Humedad_suelo_5cm_m3m3",
+                           "Humedad_suelo_40cm_m3m3")
     
     estadisticas <- list()
     for (var in vars_principales) {
@@ -520,8 +535,23 @@ procesar_datos_completo <- function(archivo, prefijo = "Analisis_Parcela3", arch
     
     # Atípicos IQR
     atipicos_iqr <- list()
-    variables_verificar <- c("Temperatura_aire_C", "Humedad_relativa_porc", 
-                             "Velocidad_viento_ms", "Radiacion_global_Wm2")
+    variables_verificar <- c("Radiacion_global_Wm2",
+                             "Precipitacion_mm", 
+                             "Rayos_conteo",
+                             "Velocidad_viento_ms",
+                             "Direccion_viento_grados",
+                             "Rachas_ms",
+                             "Temperatura_aire_C",
+                             "Presion_atmosferica_mbar",
+                             "Humedad_relativa_porc",
+                             "Radiacion_global_MJm2",
+                             "Temperatura_superficie_C",
+                             "Flujo_energia_suelo_Wm2",
+                             "Radiacion_neta_Wm2",
+                             "Temperatura_termocupla1_C",
+                             "Temperatura_termocupla2_C",
+                             "Humedad_suelo_5cm_m3m3",
+                             "Humedad_suelo_40cm_m3m3")
     for (var in variables_verificar) {
       if (var %in% colnames(datos)) {
         Q1 <- quantile(datos[[var]], 0.25, na.rm = TRUE)
@@ -538,8 +568,23 @@ procesar_datos_completo <- function(archivo, prefijo = "Analisis_Parcela3", arch
     }
     resultados_cc$atipicos_iqr <- atipicos_iqr
     
-    vars_esenciales <- c("Temperatura_aire_C", "Humedad_relativa_porc", 
-                         "Velocidad_viento_ms", "Radiacion_global_Wm2")
+    vars_esenciales <- c("Radiacion_global_Wm2",
+                         "Precipitacion_mm", 
+                         "Rayos_conteo",
+                         "Velocidad_viento_ms",
+                         "Direccion_viento_grados",
+                         "Rachas_ms",
+                         "Temperatura_aire_C",
+                         "Presion_atmosferica_mbar",
+                         "Humedad_relativa_porc",
+                         "Radiacion_global_MJm2",
+                         "Temperatura_superficie_C",
+                         "Flujo_energia_suelo_Wm2",
+                         "Radiacion_neta_Wm2",
+                         "Temperatura_termocupla1_C",
+                         "Temperatura_termocupla2_C",
+                         "Humedad_suelo_5cm_m3m3",
+                         "Humedad_suelo_40cm_m3m3")
     completitud <- sapply(vars_esenciales, function(x) {
       if (x %in% colnames(datos)) {
         round(sum(!is.na(datos[[x]])) / nrow(datos) * 100, 2)
@@ -730,6 +775,7 @@ procesar_datos_completo <- function(archivo, prefijo = "Analisis_Parcela3", arch
 resultados_completos <- procesar_datos_completo("Datos_Parcela_3.xlsx",
                                                 prefijo = "Analisis_Parcela3",
                                                 archivo_word = "Informe_Analisis_Parcela3.docx")
+
 ```
 
 ## Resultados
