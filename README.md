@@ -54,16 +54,17 @@ La zona de estudio del proyecto en donde se instaló la estación meteorológica
 
 Este paso consiste en importar a R y agrupar los datos en forma secuencial. Para ello se diseñó el siguiente script:
 
-
-```# SCRIPT PARA IMPORTAR Y CONSOLIDAR DATOS DE DATALOGGER \# =====================================================
+```
+# SCRIPT PARA IMPORTAR Y CONSOLIDAR DATOS DE DATALOGGER \# =====================================================
 
 # 1. CARGAR PAQUETES NECESARIOS
 
 # =============================
 
-if (!require("tidyverse")) install.packages("tidyverse") if (!require("lubridate")) install.packages("lubridate") if (!require("readr")) install.packages("readr") if (!require("writexl")) install.packages("writexl")
-
-library(tidyverse) library(lubridate) library(readr) library(writexl)
+library(tidyverse) 
+library(lubridate) 
+library(readr) 
+library(writexl)
 
 # 2. CONFIGURACIÓN INICIAL
 
