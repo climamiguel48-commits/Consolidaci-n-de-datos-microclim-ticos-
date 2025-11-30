@@ -848,25 +848,7 @@ Humedad_Suelo<-ggplot(datos_suelo, aes(x = fecha_hora, y = Humedad, color = Prof
   theme_bw() +
   theme(legend.position = "top")
 
-# 4. GRÁFICO DE TEMPERATURAS COMPARATIVAS
-datos_temp <- datos_renombrado %>%
-  select(fecha_hora, Temperatura_aire_C, Temperatura_superficie_C, 
-         Temperatura_termocupla1_C, Temperatura_termocupla2_C) %>%
-  mutate(across(-fecha_hora, ~ {
-    num_val <- as.numeric(.)
-    ifelse(is.na(num_val), mean(num_val, na.rm = TRUE), num_val)
-  })) %>%
-  pivot_longer(cols = -fecha_hora, names_to = "Tipo_Temperatura", values_to = "Temperatura")
-
-Diferentes_Temperaturas<-ggplot(datos_temp, aes(x = fecha_hora, y = Temperatura, color = Tipo_Temperatura)) +
-  geom_line(linewidth = 0.4, alpha = 0.7) +
-  labs(title = "Comparación de Diferentes Temperaturas",
-       x = "Fecha y Hora", y = "Temperatura (°C)",
-       color = "Tipo de Temperatura") +
-  theme_bw() +
-  theme(legend.position = "top")
-
-# 5. GRÁFICO DE PRECIPITACIÓN ACUMULADA
+# 4. GRÁFICO DE PRECIPITACIÓN ACUMULADA
 Precipitacion<-datos_renombrado %>%
   mutate(fecha = as.Date(fecha_hora),
          Precipitacion_mm = as.numeric(Precipitacion_mm)) %>%
@@ -878,7 +860,7 @@ Precipitacion<-datos_renombrado %>%
        x = "Fecha", y = "Precipitación (mm)") +
   theme_bw()
 
-# 6. ROSA DE VIENTOS (Wind Rose)
+# 5. ROSA DE VIENTOS (Wind Rose)
 # Asegurarse de que openair esté instalado y cargado
 rosas_viento<-if(require(openair)) {
   # Preparar datos para rosa de vientos
@@ -895,29 +877,7 @@ rosas_viento<-if(require(openair)) {
            key.header = "Velocidad (m/s)")
 }
 
-# 7. GRÁFICO DE DIAGRAMA DE CAJA POR HORA DEL DÍA
-Distribución_Temperatura<-ggplot(datos_renombrado, aes(x = factor(hora), y = Temperatura_aire_C)) +
-  geom_boxplot(fill = "lightblue", alpha = 0.7) +
-  labs(title = "Distribución de Temperatura por Hora del Día",
-       x = "Hora del Día", y = "Temperatura del Aire (°C)") +
-  theme_bw()
-
-# 8. GRÁFICO DE RADIACIÓN NETA vs FLUJO DE ENERGÍA EN EL SUELO
-Radiación_Flujo_Suelo<-ggplot(datos_renombrado, aes(x = as.numeric(Radiacion_global_Wm2), y = as.numeric(Flujo_energia_suelo_Wm2))) +
-  geom_point(alpha = 0.5, color = "darkgreen") +
-  geom_smooth(method = "lm", color = "red", se = TRUE) +
-  labs(title = "Radiación Neta vs Flujo de Energía en el Suelo",
-       x = "Radiación Global (W/m²)", y = "Flujo de Energía en el Suelo (W/m²)") +
-  theme_bw()
-
-# 9. GRÁFICO DE PRESIÓN ATMOSFÉRICA EN EL TIEMPO
-Presión_Atmosférica<-ggplot(datos_renombrado, aes(x = fecha_hora, y = as.numeric(Presion_atmosferica_mbar))) +
-  geom_line(color = "purple", linewidth = 0.5) +
-  labs(title = "Presión Atmosférica en el Tiempo",
-       x = "Fecha y Hora", y = "Presión Atmosférica (mbar)") +
-  theme_bw()
-
-# 10. GRÁFICO DE CORRELACIONES ENTRE VARIABLES
+# 6. GRÁFICO DE CORRELACIONES ENTRE VARIABLES
 # Seleccionar variables numéricas para matriz de correlación
 variables_cor <- datos_renombrado %>%
   select(Radiacion_global_Wm2, Temperatura_aire_C, Humedad_relativa_porc,
@@ -945,19 +905,46 @@ correlaciones<-ggplot(cor_long, aes(x = Var1, y = Var2, fill = Correlacion)) +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
+# 7. GRÁFICO DE DISTRIBUCION DE TEMPERATURAS 
+datos_temp_2 <- datos_renombrado %>%
+  select(Temperatura_aire_C, Temperatura_superficie_C, 
+         Temperatura_termocupla1_C, Temperatura_termocupla2_C) %>%
+  pivot_longer(cols = everything(), names_to = "Variable", values_to = "Valor")
+
+# Crear etiquetas más cortas
+etiquetas <- c(
+  "Temperatura_aire_C" = "Temp Aire",
+  "Temperatura_superficie_C" = "Temp Superficie", 
+  "Temperatura_termocupla1_C" = "Termocupla 1",
+  "Temperatura_termocupla2_C" = "Termocupla 2"
+)
+
+datos_temp_2$Variable_etiqueta <- factor(datos_temp_2$Variable,
+                                       levels = names(etiquetas),
+                                       labels = etiquetas)
+
+# Crear el boxplot
+distribucion_temperaturas_2<-ggplot(datos_temp_2, aes(x = Variable_etiqueta, y = as.numeric(Valor), fill = Variable_etiqueta)) +
+  geom_boxplot(outlier.color = "red", outlier.shape = 16, outlier.size = 1.2) +
+  stat_summary(fun = mean, geom = "point", shape = 18, size = 3, color = "yellow") +
+  labs(title = "Distribución de Temperaturas - Boxplot", 
+       x = "Variables", y = "°C") +
+  theme_bw() +
+  theme(legend.position = "none", 
+        axis.text.x = element_text(angle = 45, hjust = 1))
+
 # Guardar todos los gráficos en archivos PNG
 ggsave("series_temporales.png", plot = series_temporales, width = 12, height = 8, dpi = 500)
 ggsave("radiacion_vs_temperatura.png", plot = RADIACIÓN_TEMPERATURA, width = 10, height = 6, dpi = 500)
 ggsave("humedad_suelo.png", plot = Humedad_Suelo, width = 10, height = 6, dpi = 500)
-ggsave("temperaturas_comparativas.png", plot = Diferentes_Temperaturas , width = 10, height = 6, dpi = 500)
+ggsave("Distribucion_temperaturas.png", plot = distribucion_temperaturas_2 , width = 10, height = 6, dpi = 500)
 ggsave("precipitacion_diaria.png", plot = Precipitacion, width = 10, height = 6, dpi = 500)
 ggsave("boxplot_temperatura_hora.png", plot = Distribución_Temperatura, width = 10, height = 6, dpi = 500)
-ggsave("radiacion_vs_flujo_suelo.png", plot = Radiación_Flujo_Suelo, width = 10, height = 6, dpi = 500)
-ggsave("presion_atmosferica.png", plot = Presión_Atmosférica, width = 10, height = 6, dpi = 500)
 ggsave("matriz_correlacion.png", plot = correlaciones,  width = 10, height = 8, dpi = 500)
 png("rosa_viento.png", width = 10, height = 6, units = "in", res = 500)
 print(rosas_viento)  # Usar print() explícitamente
 dev.off()
+
 ```
 
 Las variables mostraron el comportamiento bimodal característico, típico de la respuesta al flujo de energía disponible.

@@ -141,14 +141,7 @@ rosas_viento<-if(require(openair)) {
            key.header = "Velocidad (m/s)")
 }
 
-# 6. GRÁFICO DE DIAGRAMA DE CAJA POR HORA DEL DÍA
-Distribución_Temperatura<-ggplot(datos_renombrado, aes(x = factor(hora), y = Temperatura_aire_C)) +
-  geom_boxplot(fill = "lightblue", alpha = 0.7) +
-  labs(title = "Distribución de Temperatura por Hora del Día",
-       x = "Hora del Día", y = "Temperatura del Aire (°C)") +
-  theme_bw()
-
-# 7. GRÁFICO DE CORRELACIONES ENTRE VARIABLES
+# 6. GRÁFICO DE CORRELACIONES ENTRE VARIABLES
 # Seleccionar variables numéricas para matriz de correlación
 variables_cor <- datos_renombrado %>%
   select(Radiacion_global_Wm2, Temperatura_aire_C, Humedad_relativa_porc,
@@ -176,7 +169,7 @@ correlaciones<-ggplot(cor_long, aes(x = Var1, y = Var2, fill = Correlacion)) +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-# 8. GRÁFICO DE DISTRIBUCION DE TEMPERATURAS 
+# 7. GRÁFICO DE DISTRIBUCION DE TEMPERATURAS 
 datos_temp_2 <- datos_renombrado %>%
   select(Temperatura_aire_C, Temperatura_superficie_C, 
          Temperatura_termocupla1_C, Temperatura_termocupla2_C) %>%
@@ -208,7 +201,6 @@ distribucion_temperaturas_2<-ggplot(datos_temp_2, aes(x = Variable_etiqueta, y =
 ggsave("series_temporales.png", plot = series_temporales, width = 12, height = 8, dpi = 500)
 ggsave("radiacion_vs_temperatura.png", plot = RADIACIÓN_TEMPERATURA, width = 10, height = 6, dpi = 500)
 ggsave("humedad_suelo.png", plot = Humedad_Suelo, width = 10, height = 6, dpi = 500)
-ggsave("temperaturas_comparativas.png", plot = Diferentes_Temperaturas , width = 10, height = 6, dpi = 500)
 ggsave("Distribucion_temperaturas.png", plot = distribucion_temperaturas_2 , width = 10, height = 6, dpi = 500)
 ggsave("precipitacion_diaria.png", plot = Precipitacion, width = 10, height = 6, dpi = 500)
 ggsave("boxplot_temperatura_hora.png", plot = Distribución_Temperatura, width = 10, height = 6, dpi = 500)
