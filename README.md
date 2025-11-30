@@ -16,6 +16,90 @@ La zona de estudio del proyecto en donde se instaló la estación meteorológica
 
 ![](area.png)
 
+Este visualización de la localización de la zona de estudio se realizó con el siguiente script:
+
+```
+library(tmap)
+library(sf)
+library(dplyr)
+
+# Crear un objeto espacial con toda la información
+estacion <- data.frame(
+  nombre = "Estación Meteorológica Huechuraba",
+  direccion = "Carr. Gral. San Martín 7021, Huechuraba",
+  altitud = "490.87 msnm",
+  coordenadas = "-33.354, -70.691",
+  lat = -33.354,
+  lon = -70.691
+) %>%
+  st_as_sf(coords = c("lon", "lat"), crs = 4326)
+
+# Definir el área de visualización (zoom más cercano)
+bbox_area <- st_bbox(c(xmin = -70.71, xmax = -70.67, 
+                       ymin = -33.37, ymax = -33.34))
+
+# Crear el mapa con toda la información
+tm <- tm_shape(estacion, bbox = bbox_area) +
+  # Mapa base
+  tm_basemap("OpenStreetMap") +
+  
+  # Punto de la estación
+  tm_dots(size = 0.3, 
+          col = "red", 
+          shape = 17,
+          title = "Ubicación Estación",
+          legend.show = FALSE) +
+  
+  # Etiqueta con el nombre
+  tm_text("nombre", 
+          ymod = 1.2, 
+          size = 0.9, 
+          fontface = "bold",
+          shadow = TRUE) +
+  
+  # Información adicional como etiqueta
+  tm_text("direccion",
+          ymod = 0.6,
+          size = 0.7,
+          fontface = "italic") +
+  
+  # Elementos cartográficos
+  tm_scale_bar(position = c("left", "bottom"),
+               text.size = 0.8) +
+  tm_compass(position = c("right", "top"),
+             size = 2) +
+  
+  # Título y diseño
+  tm_layout(
+    main.title = "ESTACIÓN METEOROLÓGICA - HUECHURABA",
+    main.title.size = 1.1,
+    main.title.fontface = "bold",
+    main.title.position = "center",
+    frame = TRUE,
+    bg.color = "white"
+  ) +
+  
+  # Leyenda personalizada con la información
+  tm_add_legend(type = "symbol",
+                labels = paste("Altitud: 490.87 msnm\nCoordenadas: -33.354, -70.691"),
+                col = "black",
+                size = 0.8,
+                fontface = "bold",
+                position = c("left", "top"))
+
+tm
+
+# Guardar el mapa
+tmap_save(tm, "area.png", width = 10, height = 8, dpi = 300)
+
+cat("✅ Mapa completo guardado como 'area.png'\n")
+cat("📝 Información incluida:\n")
+cat("   • Carr. Gral. San Martín 7021, Huechuraba\n")
+cat("   • Altitud: 490.87 msnm\n")
+cat("   • Coordenadas: -33.354, -70.691\n")
+
+```
+
 ## Procesamiento de los datos
 
 ### Paqueterías utilizadas
