@@ -182,7 +182,6 @@ Los resultados de todas estas pruebas se reportaron detalladamente dentro un inf
 
 # CARGAR LIBRERÍAS NECESARIAS
 
-install.packages(c("officer","flextable","scales"))
 library(readxl)
 library(dplyr)
 library(ggplot2)
@@ -732,3 +731,34 @@ resultados_completos <- procesar_datos_completo("Datos_Parcela_3.xlsx",
                                                 prefijo = "Analisis_Parcela3",
                                                 archivo_word = "Informe_Analisis_Parcela3.docx")
 ```
+
+## Resultados
+
+Se procesaron 130 dias de registros. Los resultados son los siguientes:
+
+Analisis estadistico
+
+![](resultado estadistico.png)
+
+Control de calidad
+
+```
+Variable	N_fuera_rango	Porcentaje
+Temperatura_aire_C	0	0
+Humedad_relativa_porc	0	0
+Velocidad_viento_ms	0	0
+Radiacion_global_Wm2	0	0
+Precipitacion_mm	0	0
+Humedad_suelo_5cm_m3m3	0	0
+Humedad_suelo_40cm_m3m3	0	0
+
+```
+
+
+
+
+
+
+
+
+
