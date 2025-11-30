@@ -818,8 +818,16 @@ Humedad_suelo_40cm_m3m3 99.84
 
 ### Gráficos generados
 
+Las variables mostraron el comportamiento bimodal característico, típico de la respuesta al flujo de energía disponible.
+
 ![](Analisis_Parcela3_Panel_Atmosferico.png)
 
 ![](Analisis_Parcela3_Panel_Suelo.png)
 
+Se decidió realizar boxplot de las temperaturas para verificar visualmente la distribución de los datos y si existía algún valor atípico.
+
 ![](Analisis_Parcela3_Boxplot_Temperaturas.png)
+
+## Conclusiones 
+
+Los resultados mostraron registros considerados satisfactorios, al estar dentro de los esquemas aceptables de calidad para datos meteorológicos, tanto en los valores atípicos, fuera de rango y en el análisis exploratorio estadístico. 
