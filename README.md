@@ -20,7 +20,7 @@ La zona de estudio del proyecto en donde se instaló la estación meteorológica
 
 ### Paqueterías utilizadas
 
-Se usó el entorno de RStudio y los siguientes paquetes: `readxl`, dplyr, ggplot2, tidyr, lubridate, patchwork, summarytools, officer, flextable, scales, tidyverse, lubridate, readr, writexl.
+Se usó el entorno de RStudio y los siguientes paquetes: `readxl`, `dplyr`, `ggplot2`, `tidyr`, `lubridate`, `patchwork`, `summarytools`, `officer`, `flextable`, `scales`, `tidyverse`, `lubridate`, `readr` y `writexl`.
 
 ### *Variables meteorológicas:*
 
