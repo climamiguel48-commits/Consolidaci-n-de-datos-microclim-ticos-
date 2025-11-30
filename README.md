@@ -12,6 +12,12 @@ La implementación sistemática de un pipeline integral de procesamiento, visual
 
 # Metodología 
 
+## **Zona de estudio** 
+
+```         
+```{r mapa_parcela_huechuraba, echo=FALSE, fig.width=8, fig.height=6} library(leaflet) library(htmltools)  # Coordenadas exactas de la parcela latitud <- -33.354 longitud <- -70.691 altitud <- 490.87  # Mapa interactivo con capa satelital leaflet() %>%   addTiles() %>%   addProviderTiles("Esri.WorldImagery", group = "Satélite") %>%   addProviderTiles("OpenStreetMap", group = "Calles") %>%   addMarkers(     lng = longitud,      lat = latitud,     popup = paste0(       "<b>Estación Meteorológica</b><br>",       "Carr. Gral. San Martín 7021<br>",       "Huechuraba, Región Metropolitana<br>",       "Altitud: ", altitud, " msnm<br>",       "Coordenadas: ", latitud, ", ", longitud     ),     label = "Parcela de Estudio"   ) %>%   addCircleMarkers(     lng = longitud, lat = latitud,     radius = 8, color = "red", fillOpacity = 0.5   ) %>%   addLayersControl(     baseGroups = c("Satélite", "Calles"),     options = layersControlOptions(collapsed = FALSE)   )
+```
+
 ## **Análisis Estadístico de los Datos**
 
 El análisis estadístico que se realizó consistió en un proceso exploratorio integral que comenzó con la carga y transformación de los datos, convirtiendo las variables a formato numérico y renombrando las columnas a un esquema en español para mayor claridad. Se calcularon estadísticas descriptivas fundamentales —como la media, mediana, desviación estándar, valores mínimo y máximo, y el conteo de valores faltantes— para las variables meteorológicas principales, entre las que se incluyeron la temperatura del aire, la humedad relativa, la velocidad del viento y la radiación global. Este análisis inicial proporcionó un resumen ejecutivo del período de datos, incluyendo las fechas de inicio y fin, la duración total en días y el número total de registros, sentando las bases para una comprensión cuantitativa del conjunto de datos antes de proceder con evaluaciones más profundas
