@@ -14,12 +14,32 @@ La implementación sistemática de un pipeline integral de procesamiento, visual
 
 ## **Zona de estudio** 
 
-```{r mapa_parcela_huechuraba, echo=FALSE, fig.width=8, fig.height=6} library(leaflet) library(htmltools)  # Coordenadas exactas de la parcela latitud <- -33.354 longitud <- -70.691 altitud <- 490.87  # Mapa interactivo con capa satelital leaflet() %>%   addTiles() %>%   addProviderTiles("Esri.WorldImagery",
-group = "Satélite") %>%   addProviderTiles("OpenStreetMap", group = "Calles") %>%addMarkers(lng = longitud,lat = latitud,
-popup = paste0("<b>Estación Meteorológica</b><br>",
-"Carr. Gral. San Martín 7021<br>","Huechuraba, Región Metropolitana<br>",
-"Altitud: ", altitud, " msnm<br>","Coordenadas: ", latitud, ", ", longitud     ),
-label = "Parcela de Estudio") %>% addCircleMarkers(lng = longitud, lat = latitud,radius = 8, color = "red", fillOpacity = 0.5) %>% addLayersControl(baseGroups = c("Satélite", "Calles"),     options = layersControlOptions(collapsed = FALSE))
+```{r mapa_estatico_github, echo=FALSE, fig.width=8, fig.height=6}
+library(ggplot2)
+library(ggmap)
+library(sf)
+
+# Coordenadas exactas
+ubicacion <- data.frame(
+  nombre = "Estación Huechuraba",
+  lon = -70.691,
+  lat = -33.354
+)
+
+# Crear mapa estático
+ggplot() +
+  borders("world", regions = "chile", fill = "lightgray", colour = "white") +
+  geom_point(data = ubicacion, aes(x = lon, y = lat), 
+             color = "red", size = 4, shape = 17) +
+  geom_label(data = ubicacion, aes(x = lon, y = lat, label = nombre),
+            vjust = -1, hjust = 0.5, fontface = "bold", size = 3) +
+  coord_sf(xlim = c(-71.0, -70.4), ylim = c(-33.5, -33.2)) +
+  labs(title = "Ubicación Estación Meteorológica - Huechuraba",
+       subtitle = "Carr. Gral. San Martín 7021 | Altitud: 490.87 msnm",
+       x = "Longitud", 
+       y = "Latitud") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold", size = 14))
 ```
 ## **Análisis Estadístico de los Datos**
 
