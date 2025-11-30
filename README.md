@@ -18,9 +18,9 @@ La zona de estudio del proyecto en donde se instaló la estación meteorológica
 
 ## Procesamiento de los datos
 
-##Paqueterias utilizadas 
+### Paqueterías utilizadas
 
-Se usó el entorno de RStudio y los siguientes paquetes: readxl, dplyr, ggplot2, tidyr, lubridate, patchwork, summarytools, officer, flextable, scales, tidyverse, lubridate, readr, writexl. 
+Se usó el entorno de RStudio y los siguientes paquetes: readxl, dplyr, ggplot2, tidyr, lubridate, patchwork, summarytools, officer, flextable, scales, tidyverse, lubridate, readr, writexl.
 
 ### *Variables meteorológicas:*
 
@@ -175,9 +175,9 @@ El control de calidad fue un proceso riguroso y automatizado que se aplicó para
 
 **4) Control de la continuidad temporal:** Se detectaron saltos en la serie temporal identificando intervalos entre registros consecutivos que no fueron de una hora, lo que ayudó a encontrar huecos o inconsistencias en la frecuencia del muestreo.
 
-Los resultados de todas estas pruebas se reportaron detalladamente dentro un informe informe final. El script a continuación: 
+Los resultados de todas estas pruebas se reportaron detalladamente dentro un informe informe final. El script a continuación:
 
-```
+```         
 #Análisis estadístico y control de calidad
 
 # CARGAR LIBRERÍAS NECESARIAS
@@ -731,5 +731,4 @@ procesar_datos_completo <- function(archivo, prefijo = "Analisis_Parcela3", arch
 resultados_completos <- procesar_datos_completo("Datos_Parcela_3.xlsx",
                                                 prefijo = "Analisis_Parcela3",
                                                 archivo_word = "Informe_Analisis_Parcela3.docx")
-
 ```
