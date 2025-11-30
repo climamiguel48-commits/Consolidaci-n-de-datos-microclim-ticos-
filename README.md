@@ -10,37 +10,12 @@ Asi entonces, se plantea la siguiente hipótesis:
 
 La implementación sistemática de un pipeline integral de procesamiento, visualización y control de calidad de datos es un requisito fundamental para transformar datos meteorológicos crudos en información confiable y aplicable, permitiendo la detección de patrones climáticos significativos y apoyando la toma de decisiones informadas en el manejo agrícola de la parcela.
 
-# Metodología 
+# Metodología
 
-## **Zona de estudio** 
+## **Zona de estudio**
 
-```{r mapa_estatico_github, echo=FALSE, fig.width=8, fig.height=6}
-library(ggplot2)
-library(ggmap)
-library(sf)
+![](area.png)
 
-# Coordenadas exactas
-ubicacion <- data.frame(
-  nombre = "Estación Huechuraba",
-  lon = -70.691,
-  lat = -33.354
-)
-
-# Crear mapa estático
-ggplot() +
-  borders("world", regions = "chile", fill = "lightgray", colour = "white") +
-  geom_point(data = ubicacion, aes(x = lon, y = lat), 
-             color = "red", size = 4, shape = 17) +
-  geom_label(data = ubicacion, aes(x = lon, y = lat, label = nombre),
-            vjust = -1, hjust = 0.5, fontface = "bold", size = 3) +
-  coord_sf(xlim = c(-71.0, -70.4), ylim = c(-33.5, -33.2)) +
-  labs(title = "Ubicación Estación Meteorológica - Huechuraba",
-       subtitle = "Carr. Gral. San Martín 7021 | Altitud: 490.87 msnm",
-       x = "Longitud", 
-       y = "Latitud") +
-  theme_minimal() +
-  theme(plot.title = element_text(face = "bold", size = 14))
-```
 ## **Análisis Estadístico de los Datos**
 
 El análisis estadístico que se realizó consistió en un proceso exploratorio integral que comenzó con la carga y transformación de los datos, convirtiendo las variables a formato numérico y renombrando las columnas a un esquema en español para mayor claridad. Se calcularon estadísticas descriptivas fundamentales —como la media, mediana, desviación estándar, valores mínimo y máximo, y el conteo de valores faltantes— para las variables meteorológicas principales, entre las que se incluyeron la temperatura del aire, la humedad relativa, la velocidad del viento y la radiación global. Este análisis inicial proporcionó un resumen ejecutivo del período de datos, incluyendo las fechas de inicio y fin, la duración total en días y el número total de registros, sentando las bases para una comprensión cuantitativa del conjunto de datos antes de proceder con evaluaciones más profundas
