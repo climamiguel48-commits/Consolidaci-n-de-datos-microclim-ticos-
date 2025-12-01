@@ -6,7 +6,7 @@ Para un proyecto de investigación se instaló una estación meteorológica auto
 
 Asi entonces, se plantea la siguiente objetivo:
 
-Implementar un pipeline integral de procesamiento, visualización y control de calidad de datos es un requisito fundamental para transformar datos meteorológicos crudos en información confiable y aplicable, permitiendo la detección de patrones climáticos significativos y apoyando la toma de decisiones informadas en el manejo agrícola de la parcela.
+Implementar un pipeline integral de procesamiento, visualización y control de calidad de datos para transformar datos meteorológicos crudos en información confiable y aplicable, permitiendo la detección de patrones climáticos significativos y apoyando la toma de decisiones informadas en el manejo agrícola de la parcela.
 
 # Metodología
 
