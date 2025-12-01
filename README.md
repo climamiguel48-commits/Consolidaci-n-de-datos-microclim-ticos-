@@ -2,13 +2,13 @@
 
 Para un proyecto de investigación se instaló una estación meteorológica automática compacta y una serie de sensores que miden los flujos de energia dentro de una parcela de 1000 m-2 en donde se registran las variables cada 60 minutos dentro de un datalogger CR5000. Por cuestiones de seguridad, los datos se descargan semanalmente y estos se van almacenado. El formato de los archivos es ".dat". Para garantizar la integridad y aplicabilidad de los datos, es necesario adjuntarlos de forma secuencial y posteriormente, verificar la calidad; realizar una exploración que integre estadística descriptiva y visualización.
 
+![](photo_2025-11-30_22-31-21.jpg)
+
 ## *Objetivo*
 
 Asi entonces, se plantea la siguiente objetivo:
 
-Implementar un pipeline integral de procesamiento, visualización y control de calidad de datos para transformar datos meteorológicos crudos en información confiable y aplicable, permitiendo la detección de patrones climáticos significativos y apoyando la toma de decisiones informadas en el manejo agrícola de la parcela.
-
-# Metodología
+Implementar un pipeline integral de procesamiento, visualización y control de calidad de datos para transformar datos meteorológicos crudos en información confiable y aplicable.
 
 ## **Zona de estudio**
 
