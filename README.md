@@ -2,11 +2,11 @@
 
 Para un proyecto de investigación se instaló una estación meteorológica automática compacta y una serie de sensores que miden los flujos de energia dentro de una parcela de 1000 m-2 en donde se registran las variables cada 60 minutos dentro de un datalogger CR5000. Por cuestiones de seguridad, los datos se descargan semanalmente y estos se van almacenado. El formato de los archivos es ".dat". Para garantizar la integridad y aplicabilidad de los datos, es necesario adjuntarlos de forma secuencial y posteriormente, verificar la calidad; realizar una exploración que integre estadística descriptiva y visualización.
 
-## *Hipótesis*
+## *Objetivo*
 
-Asi entonces, se plantea la siguiente hipótesis:
+Asi entonces, se plantea la siguiente objetivo:
 
-La implementación sistemática de un pipeline integral de procesamiento, visualización y control de calidad de datos es un requisito fundamental para transformar datos meteorológicos crudos en información confiable y aplicable, permitiendo la detección de patrones climáticos significativos y apoyando la toma de decisiones informadas en el manejo agrícola de la parcela.
+Implementar un pipeline integral de procesamiento, visualización y control de calidad de datos es un requisito fundamental para transformar datos meteorológicos crudos en información confiable y aplicable, permitiendo la detección de patrones climáticos significativos y apoyando la toma de decisiones informadas en el manejo agrícola de la parcela.
 
 # Metodología
 
@@ -944,14 +944,13 @@ ggsave("matriz_correlacion.png", plot = correlaciones,  width = 10, height = 8, 
 png("rosa_viento.png", width = 10, height = 6, units = "in", res = 500)
 print(rosas_viento)  # Usar print() explícitamente
 dev.off()
-
 ```
 
 Las variables mostraron el comportamiento bimodal característico, típico de la respuesta al flujo de energía disponible.
 
 ![](series_temporales.png)
 
-Las correlaciones entre las variables mostraron globalmente las relaciones mandefineds importantes entre las variables más importantes 
+Las correlaciones entre las variables mostraron globalmente las relaciones mandefineds importantes entre las variables más importantes
 
 ![](matriz_correlacion.png)
 
