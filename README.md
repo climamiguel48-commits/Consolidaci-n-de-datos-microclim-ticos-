@@ -90,11 +90,6 @@ tm
 # Guardar el mapa
 tmap_save(tm, "area.png", width = 10, height = 8, dpi = 300)
 
-cat("✅ Mapa completo guardado como 'area.png'\n")
-cat("📝 Información incluida:\n")
-cat("   • Carr. Gral. San Martín 7021, Huechuraba\n")
-cat("   • Altitud: 490.87 msnm\n")
-cat("   • Coordenadas: -33.354, -70.691\n")
 ```
 
 ## Procesamiento de los datos
