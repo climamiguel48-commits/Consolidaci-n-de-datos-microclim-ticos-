@@ -6,8 +6,6 @@ Para un proyecto de investigación se instaló una estación meteorológica auto
 
 ## *Objetivo*
 
-Asi entonces, se plantea la siguiente objetivo:
-
 Implementar un pipeline integral de procesamiento, visualización y control de calidad de datos para transformar datos meteorológicos crudos en información confiable y aplicable.
 
 ## **Zona de estudio**
