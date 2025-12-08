@@ -8,7 +8,7 @@ En este repositorio se encuentran los procedimientos llevados a cabo para proces
 
 ***Objetivo***
 
-Evaluar la utilidad de registros meteorologicos a través de un conjunto de procesamiento, visualización y control de calidad de datos. 
+Evaluar la utilidad de registros meteorologicos a través de un conjunto de procesamiento, visualización y control de calidad de datos.
 
 ## Procesamiento de los datos
 
@@ -118,8 +118,6 @@ Debido a la cantidad de variables, se muestran solo algunos resultados:
 | **Radiación Global** (W/m²) | 0 | 1500 | 0 | 0% | 0 | 0% | 189.11 | OK |
 | **Precipitación** (mm) | 0 | 100 | 0 | 0% | 4 | 0.16% | 0.03 | OK |
 
-La visualizacion gráfica permitio ver el comportamiento tipico
-
 La visualización gráfica permitió ver el comportamiento típico de las variables; la radiación global y la temperatura fueron aumentando a medida que se pasaba de la estación de invierno a primavera. Por el contrario, la humedad relativa y la velocidad del viento fueron disminuyendo.
 
 ![](03_visualizacion_grafica/graficos/series_temporales.png)
@@ -132,32 +130,26 @@ La rosa de vientos mostró la dirección Sur como la más frencuente.
 
 ![](03_visualizacion_grafica/graficos/rosa_viento.png)
 
-# Conclusiones 
+# Conclusiones
 
-La evaluación de los registros en relación al comportamiento esperado y el 
-cumplimiento de los aspectos del control de calidad confirma la suficiente 
-calidad para su aprovechamiento en estudios posteriores. Es importante 
-mencionar es que existe un margen de tiempo no registrado, especialmente durante
-agosto de 2025. Este margen no se tomó en cuenta para el análisis de completitud, 
-debido a que los sensores estaban aún en fase de instalación.  
+La evaluación de los registros en relación al comportamiento esperado y el cumplimiento de los aspectos del control de calidad confirma la suficiente calidad para su aprovechamiento en estudios posteriores. Es importante mencionar es que existe un margen de tiempo no registrado, especialmente durante agosto de 2025. Este margen no se tomó en cuenta para el análisis de completitud, debido a que los sensores estaban aún en fase de instalación.
 
-#Referencias 
+## Referencias
 
 Llanos Herrera, L. (2013). RClimTool: Manual del usuario [PDF]. Centro Internacional de Agricultura Tropical (CIAT) - Ministerio de Agricultura y Desarrollo Rural (MADR) de Colombia. Recuperado de www.aclimatecolombia.org
 
-Dandrifosse, S., Jago, A., Huart, J. P., Michaud, V., Planchon, V., & Rosillon, D. (2024). Automatic quality control of weather data for timely decisions in agriculture. Smart Agricultural Technology, 8, 100445. https://doi.org/10.1016/j.atech.2024.100445
+Dandrifosse, S., Jago, A., Huart, J. P., Michaud, V., Planchon, V., & Rosillon, D. (2024). Automatic quality control of weather data for timely decisions in agriculture. Smart Agricultural Technology, 8, 100445. <https://doi.org/10.1016/j.atech.2024.100445>
 
-#Declaración de uso de inteligencia artificial generativa
+## Declaración de uso de inteligencia artificial generativa
 
-El autor recurrió a la herramienta Deppseek  https://chat.deepseek.com/ para
-el apoyo y corrección de algunos scripts que se utilizaron en el procesamiento 
-de los datos. 
+El autor recurrió a la herramienta Deppseek <https://chat.deepseek.com/> para el apoyo y corrección de algunos scripts que se utilizaron en el procesamiento de los datos.
 
-#Autor
+## Autor
 
-Ing. Miguel Silva 
+Ing. Miguel Silva
+
 Doctorado en Cs de la Agricultura y la Naturaleza
-Pontificia Universidad Católica de Chile 
+
+Pontificia Universidad Católica de Chile
+
 Fecha: Diciembre, 2025
-
-
