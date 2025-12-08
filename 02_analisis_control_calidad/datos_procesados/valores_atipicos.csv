@@ -1,0 +1,3 @@
+"Variable","Atipicos_Totales","Porcentaje_Atipicos","Limite_Inferior_IQR","Limite_Superior_IQR","Estado_Atipicos"
+"Velocidad_viento_ms",10,0.41,-0.61,1.58,"POCOS"
+"Humedad_suelo_5cm_m3m3",190,7.79,0.29,0.43,"MUCHOS"

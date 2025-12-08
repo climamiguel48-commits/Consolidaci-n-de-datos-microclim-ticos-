@@ -9,25 +9,26 @@ if (!require("tidyverse")) install.packages("tidyverse")
 if (!require("lubridate")) install.packages("lubridate")
 if (!require("readr")) install.packages("readr")
 if (!require("writexl")) install.packages("writexl")
+if (!require("here")) install.packages("here")
 
 library(tidyverse)
 library(lubridate)
 library(readr)
 library(writexl)
+library(here)
 
 # 2. CONFIGURACIÓN INICIAL
 # ========================
-# Define la ruta de la carpeta donde están los archivos
 
-Parcela1_datos <- "~/MEGA/MEGAsync Imports/Doctorado en Chile/Proyecto de doctorado/Instalacion de sensores/Datos y procesamiento/Parcela 3"
+Parcela1_datos <- here("01_importar_datos", "datos_crudos")
 
-# Definir el patrón de nombres de archivo (ajusta según tu caso)
-patron_archivos <- "\\.dat$"  # Para archivos CSV, cambiar si son .txt, .dat, etc.
+# Definir el patrón de nombres de archivo
+patron_archivos <- "\\.dat$"
 
 # Número de filas a eliminar al inicio de cada archivo
 filas_a_eliminar <- 4
 
-# Nombres de las columnas (AJUSTA SEGÚN TUS DATOS)
+# Nombres de las columnas
 nombres_columnas <- c("TIMESTAMP", "RECORD","SlrFD_W_Avg", "Rain_mm_Tot", "Strikes_Tot",
                       "Dist_km_Avg", "WS_ms_Avg", "WindDir", "MaxWS_ms_Avg", "AirT_C_Avg", "VP_mbar_Avg",
                       "BP_mbar_Avg", "ETos", "Rso", "RH", "RHT_C", "TiltNS_deg_Avg", "TiltWE_deg_Avg", "SlrTF_MJ_Tot",
@@ -39,15 +40,13 @@ nombres_columnas <- c("TIMESTAMP", "RECORD","SlrFD_W_Avg", "Rain_mm_Tot", "Strik
 # ================================================
 importar_archivo <- function(ruta_archivo) {
   tryCatch({
-    # Lee el archivo saltando las primeras 4 filas y ASIGNANDO NOMBRES
-    # Especificamos que todas las columnas se lean como carácter inicialmente
     datos <- read_csv(ruta_archivo,
                       skip = filas_a_eliminar,
                       col_names = nombres_columnas,
                       na = c("", "NA", "NAN"),
-                      col_types = cols(.default = col_character()),  # FORZAR todo como carácter
+                      col_types = cols(.default = col_character()),  
                       locale = locale(encoding = "UTF-8"),
-                      show_col_types = FALSE)  # Suprimir mensajes
+                      show_col_types = FALSE) 
 
     # Verifica que el archivo no esté vacío después de eliminar las filas
     if (nrow(datos) == 0) {
@@ -85,26 +84,23 @@ datos_completos <- map_df(archivos, importar_archivo)
 
 print(datos_completos)
 
-# 6. PROCESAR FECHAS Y ORDENAR (SOLO SI HAY DATOS)
+# 6. PROCESAR FECHAS Y ORDENAR 
 # ================================================
 if (!is.null(datos_completos) && nrow(datos_completos) > 0) {
-  
-  # Procesar la columna Date que ya existe en los datos
   datos_completos <- datos_completos %>%
-    # Convertir la columna Date a formato datetime (ajusta el formato según necesites)
     mutate(
       fecha_hora = parse_date_time(TIMESTAMP,
                                    orders = c("Y-m-d H:M:S")),
       fecha = as_date(fecha_hora)
     ) %>%
-    # Verificar que las conversiones fueron exitosas
+    # Verifica que las conversiones fueron exitosas
     filter(!is.na(fecha_hora)) %>%
-    # Ordenar cronológicamente por fecha_hora
+    # Ordena cronológicamente por fecha_hora
     arrange(fecha_hora) %>%
-    # Eliminar duplicados por fecha/hora
+    # Elimina duplicados por fecha/hora
     distinct(fecha_hora, .keep_all = TRUE) %>%
-    # Reordenar columnas (opcional)
-    select(fecha_hora, fecha, everything(), -TIMESTAMP)  # Elimina la columna Date original si prefieres
+    # Reordena columnas
+    select(fecha_hora, fecha, everything(), -TIMESTAMP)  
   
   # 7. VERIFICACIÓN Y RESULTADOS
   # ============================
@@ -118,7 +114,7 @@ if (!is.null(datos_completos) && nrow(datos_completos) > 0) {
   cat("  Desde:", as.character(min(datos_completos$fecha_hora, na.rm = TRUE)), "\n")
   cat("  Hasta:", as.character(max(datos_completos$fecha_hora, na.rm = TRUE)), "\n")
   
-  # Verificar si hay huecos temporales
+  # Verifica si hay huecos temporales
   diferencias <- diff(datos_completos$fecha_hora)
   if (length(unique(diferencias)) == 1) {
     cat("Frecuencia de datos:", unique(diferencias), "\n")
@@ -132,6 +128,7 @@ if (!is.null(datos_completos) && nrow(datos_completos) > 0) {
 # ================================
 rm(archivos, importar_archivo, filas_a_eliminar, nombres_columnas)
 
-#Exportamos los datos#
+# Luego exportar
 
-write_xlsx(datos_completos, "Datos_Parcela_3.xlsx") 
+write_xlsx(datos_completos,
+           here("01_importar_datos", "datos_consolidados", "Datos_Parcela_3.xlsx"))
