@@ -1,4 +1,4 @@
-# Consolidación de datos agrometeorológicos
+# Evaluación de datos agrometeorológicos
 
 Para un proyecto de investigación se instaló una estación meteorológica automática compacta y una serie de sensores que miden los flujos de energia dentro de una parcela de 1000 m-2, en donde se registran las variables cada 60 minutos dentro de un datalogger CR5000. Por cuestiones de seguridad, los datos se descargan semanalmente y estos se van almacenado. El formato de los archivos es ".dat". Para garantizar la integridad y aplicabilidad de los datos, es necesario adjuntarlos de forma secuencial y posteriormente, verificar la calidad.
 
@@ -130,9 +130,13 @@ La rosa de vientos mostró la dirección Sur como la más frencuente.
 
 ![](03_visualizacion_grafica/graficos/rosa_viento.png)
 
-# Conclusiones
+## Conclusiones
 
-La evaluación de los registros en relación al comportamiento esperado y el cumplimiento de los aspectos del control de calidad confirma la suficiente calidad para su aprovechamiento en estudios posteriores. Es importante mencionar es que existe un margen de tiempo no registrado, especialmente durante agosto de 2025. Este margen no se tomó en cuenta para el análisis de completitud, debido a que los sensores estaban aún en fase de instalación.
+La evaluación de los registros en relación al comportamiento esperado y al cumplimiento de los aspectos del control de calidad confirman la suficiente calidad de los datos para su aprovechamiento en estudios posteriores. Es importante mencionar que existe un margen de tiempo no registrado, especialmente durante agosto de 2025. Este margen no se tomó en cuenta para el análisis, debido a que varios sensores estaban en fase de instalación.
+
+## Agradecimientos 
+
+La Agencia Nacional de Investigación y Desarrollo de Chile (ANID) apoya esta investigación a través del proyecto Fondecyt Regular ID 20968
 
 ## Referencias
 
@@ -146,7 +150,7 @@ El autor recurrió a la herramienta Deppseek <https://chat.deepseek.com/> para e
 
 ## Autor
 
-Ing. Miguel Silva
+Ing. Msc Miguel I. Silva B.
 
 Doctorado en Cs de la Agricultura y la Naturaleza
 
