@@ -1,4 +1,4 @@
-# Consolidación de datos meteorológicos 
+# Consolidación de datos agrometeorológicos
 
 Para un proyecto de investigación se instaló una estación meteorológica automática compacta y una serie de sensores que miden los flujos de energia dentro de una parcela de 1000 m-2, en donde se registran las variables cada 60 minutos dentro de un datalogger CR5000. Por cuestiones de seguridad, los datos se descargan semanalmente y estos se van almacenado. El formato de los archivos es ".dat". Para garantizar la integridad y aplicabilidad de los datos, es necesario adjuntarlos de forma secuencial y posteriormente, verificar la calidad.
 
@@ -46,29 +46,28 @@ Se usa el entorno de RStudio y los siguientes paquetes: `readxl`, `dplyr`, `ggpl
 
 -   Humedad del suelo a los 40 cm (m3/m3)
 
-## Estructura del repositorio 
+## Estructura del repositorio
 
 ``` text
 ├── README.md
 ├── 01_importar_datos/
 │   ├── datos_crudos/        
 │   ├── script_importacion.R  
-│   └── datos_importados/    
+│   └── datos_consolidados/    
 ├── 02_analisis_control_calidad/
-│   ├── script_analisis.R     
-│   ├── datos_procesados/    
-│   └── logs_errores/         
+│   ├── script_analisis_exploratorio.R   
+│   ├── script_control_calidad.R
+│   ├── datos_procesados/   
 ├── 03_visualizacion_grafica/
 │   ├── script_visualizacion.R 
-├── graficos/              
-└── informes/
+    └── graficos/ 
 ```
 
-## Pasos para utilizar el repositorio 
+## Pasos para utilizar el repositorio
 
-```
+```         
 1. Ejecutar 01_importar_datos/script_importacion.R
-2. Ejecutar 02_analisis_control_calidad/script_analisis.R
+2. Ejecutar 02_analisis_control_calidad/script_analisis_exploratorio.R
+            02_analisis_control_calidad/script_control_calidad.R
 3. Ejecutar 03_visualizacion_grafica/script_visualizacion.R
-
 ```
