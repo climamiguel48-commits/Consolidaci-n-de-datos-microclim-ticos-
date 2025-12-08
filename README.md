@@ -72,7 +72,7 @@ Se usa el entorno de RStudio y los siguientes paquetes: `here`, `readxl`, `dplyr
 3. Ejecutar 03_visualizacion_grafica/script_visualizacion.R
 ```
 
-## Basamento teórico
+## Fundamento teórico
 
 El control de calidad de datos meteorológicos debe seguir una serie de pasos que pueden ser diferentes dependiendo de la variable a evaluar, su naturaleza e inclusive la escala de medición. Por ejemplo, debido a la elevada variabilidad temporal y espacial de la precipitación, es muy difícil determinar cuándo un valor registrado de esta variable es atípico, pero es lógico asumir que no pueden existir valores negativos en el registro. Por otro lado, la detección de tendencias es fundamental, siempre y cuando los registros sean sumamente largos, que abarquen múltiples periodos estacionales y años, esto mismo es aplicable a los test de homogeneidad. Por ende, para el procesamiento de los datos registrados para este repositorio solo se decidió utilizar algunos criterios de control de calidad aplicables a los datos disponibles hasta la fecha de inicio del procesamiento.
 
