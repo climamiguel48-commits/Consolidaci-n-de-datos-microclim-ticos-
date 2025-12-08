@@ -92,7 +92,7 @@ Se calcularon estadísticos básicos, tales como; media, mediana, desviación es
 
 ### Visualización
 
-Para la visualización se construyeron gráficos de líneas para las variables más representativas; radiación global, temperatura del aire, humedad relativa, velocidad del viento y humedades del suelo. Por otro lado, para las temperaturas del aire, de la superficie del suelo, y las registradas por las termocuplas a 5 cm de profundidad se realizaron gráficos de caja y bigote. Para la precipitación se decidió utilizar un gráfico de barras.  Por último, el grafico de rosas de viento se utilizó como el más ideal para mostrar la dirección del viento predominante.
+Para la visualización se construyeron gráficos de registros diarios de líneas para las variables más representativas; radiación global, temperatura del aire, humedad relativa, velocidad del viento y humedades del suelo. Por otro lado, para las temperaturas del aire, de la superficie del suelo, y las registradas por las termocuplas a 5 cm de profundidad se realizaron gráficos de caja y bigote. Para la precipitación se decidió utilizar un gráfico de barras.  Por último, el grafico de rosas de viento se utilizó como el más ideal para mostrar la dirección del viento predominante.
 
 ## Resultados
 
@@ -122,7 +122,7 @@ La visualización gráfica permitió ver el comportamiento típico de las variab
 
 ![](03_visualizacion_grafica/graficos/series_temporales.png)
 
-Las temperaturas no mostraron valores atipicos y fuera de rango
+Las temperaturas no mostraron valores atipicos ni fuera de rango
 
 ![](03_visualizacion_grafica/graficos/Distribucion_temperaturas.png)
 
@@ -140,9 +140,9 @@ La Agencia Nacional de Investigación y Desarrollo de Chile (ANID) apoya esta in
 
 ## Referencias
 
-Llanos Herrera, L. (2013). RClimTool: Manual del usuario [PDF]. Centro Internacional de Agricultura Tropical (CIAT) - Ministerio de Agricultura y Desarrollo Rural (MADR) de Colombia. Recuperado de www.aclimatecolombia.org
-
 Dandrifosse, S., Jago, A., Huart, J. P., Michaud, V., Planchon, V., & Rosillon, D. (2024). Automatic quality control of weather data for timely decisions in agriculture. Smart Agricultural Technology, 8, 100445. <https://doi.org/10.1016/j.atech.2024.100445>
+
+Llanos Herrera, L. (2013). RClimTool: Manual del usuario [PDF]. Centro Internacional de Agricultura Tropical (CIAT) - Ministerio de Agricultura y Desarrollo Rural (MADR) de Colombia. Recuperado de www.aclimatecolombia.org
 
 ## Declaración de uso de inteligencia artificial generativa
 
@@ -150,10 +150,4 @@ El autor recurrió a la herramienta Deppseek <https://chat.deepseek.com/> para e
 
 ## Autor
 
-Ing. Msc Miguel I. Silva B.
-
-Doctorado en Cs de la Agricultura y la Naturaleza
-
-Pontificia Universidad Católica de Chile
-
-Fecha: Diciembre, 2025
+Ing. Msc Miguel I. Silva B. Doctorado en Cs de la Agricultura y la Naturaleza. Pontificia Universidad Católica de Chile. Fecha: Diciembre, 2025
