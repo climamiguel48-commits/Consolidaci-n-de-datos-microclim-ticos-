@@ -150,4 +150,4 @@ El autor recurrió a la herramienta Deppseek <https://chat.deepseek.com/> para e
 
 ## Autor
 
-Ing. Msc Miguel I. Silva B. Doctorado en Cs de la Agricultura y la Naturaleza. Pontificia Universidad Católica de Chile. Fecha: Diciembre, 2025
+**Ing. Msc Miguel I. Silva B.** Doctorado en Cs de la Agricultura y la Naturaleza. Pontificia Universidad Católica de Chile. Fecha: Diciembre, 2025
