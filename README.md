@@ -6,7 +6,7 @@ En este repositorio se encuentran los procedimientos llevados a cabo para proces
 
 ![](Sensores.jpg)
 
-***Objetivo***
+## Objetivo
 
 Evaluar la utilidad de registros meteorologicos a través de un conjunto de procesamiento, visualización y control de calidad de datos.
 
@@ -134,7 +134,7 @@ La rosa de vientos mostró la dirección Sur como la más frencuente.
 
 La evaluación de los registros en relación al comportamiento esperado y al cumplimiento de los aspectos del control de calidad confirman la suficiente calidad de los datos para su aprovechamiento en estudios posteriores. Es importante mencionar que existe un margen de tiempo no registrado, especialmente durante agosto de 2025. Este margen no se tomó en cuenta para el análisis, debido a que varios sensores estaban en fase de instalación.
 
-## Agradecimientos 
+## Agradecimientos
 
 La Agencia Nacional de Investigación y Desarrollo de Chile (ANID) apoya esta investigación a través del proyecto Fondecyt Regular ID 20968
 
