@@ -59,7 +59,7 @@ Se usa el entorno de RStudio y los siguientes paquetes: `readxl`, `dplyr`, `ggpl
 │   ├── script_control_calidad.R
 │   ├── datos_procesados/   
 ├── 03_visualizacion_grafica/
-│   ├── script_visualizacion.R 
+    ├── script_visualizacion.R 
     └── graficos/ 
 ```
 
@@ -71,3 +71,27 @@ Se usa el entorno de RStudio y los siguientes paquetes: `readxl`, `dplyr`, `ggpl
             02_analisis_control_calidad/script_control_calidad.R
 3. Ejecutar 03_visualizacion_grafica/script_visualizacion.R
 ```
+
+## Basamento teórico
+
+El control de calidad de datos meteorológicos debe seguir una serie de pasos que pueden ser diferentes dependiendo de la variable a evaluar, su naturaleza e inclusive la escala de medición. Por ejemplo, debido a la elevada variabilidad temporal y espacial de la precipitación, es muy difícil determinar cuándo un valor registrado de esta variable es atípico, pero es lógico asumir que no pueden existir valores negativos en el registro. Por otro lado, la detección de tendencias es fundamental, siempre y cuando los registros sean sumamente largos, que abarquen múltiples periodos estacionales y años, esto mismo es aplicable a los test de homogeneidad. Por ende, para el procesamiento de los datos registrados para este repositorio solo se decidió utilizar algunos criterios de control de calidad aplicables a los datos disponibles hasta la fecha.
+
+### Análisis exploratorio de datos
+
+Se calcularon estadísticos básicos, tales como; media, mediana, desviación estándar, minimo, máximo, cantidad de NA, número total de datos y completitud.
+
+### Control de calidad
+
+1)  Verificación de rangos físicos plausibles: Se definieron y evaluaron límites físicos para cada variable, contabilizando todos los valores que se encontraron fuera de estos intervalos.
+
+2)  Detección de valores atípicos estadísticos: Se utilizó el método del rango intercuartílico (IQR) para identificar observaciones atípicas en variables clave, calculando el número y porcentaje de estos valores que se desviaron significativamente de la distribución central. Este principio no se aplicó a la precipitación.
+
+3)  Evaluación de la completitud: Se calculó el porcentaje de datos no faltantes para las variables esenciales, lo que permitió identificar cuáles pudieron tener problemas de disponibilidad.
+
+4)  Control de la continuidad temporal: Se detectaron saltos en la serie temporal identificando intervalos entre registros consecutivos que no fueron de una hora, lo que ayudó a encontrar huecos o inconsistencias en la frecuencia del muestreo.
+
+### Visualización 
+
+Para la visualización se construyeron gráficos de líneas para las variables más representativas; radiación global, temperatura del aire, humedad relativa, velocidad del viento y humedades del suelo. Por otro lado, para las temperaturas del aire, de la superficie del suelo, y las registradas por las termocuplas a 5 cm de profundidad se realizaron gráficos de caja y bigote. Para la precipitación se decidió utilizar un gráfico de barras.  Por último, el grafico de rosas de viento se utilizó como el más ideal para mostrar la dirección del viento predominante.
+
+## Resultados 
